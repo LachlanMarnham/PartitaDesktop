@@ -9,9 +9,11 @@ SCHEMA = {
 
 
 class BaseDBConnection(object):
-    def __init__(self):
-        is_new_db = not os.path.exists(PATH_TO_DB)
-        self._db = sql.connect(PATH_TO_DB)
+    def __init__(self, path_to_db, schema):
+        self._path_to_db = path_to_db
+        self._schema = schema
+        is_new_db = not os.path.exists(self._path_to_db)
+        self._db = sql.connect(self._path_to_db)
         self._cursor = self._db.cursor()
         if is_new_db:
             self._create_db()
@@ -28,11 +30,6 @@ class BaseDBConnection(object):
         self.execute(query_template, query_args)
 
     def _create_db(self):
-        for table, columns in SCHEMA.items():
+        for table, columns in self._schema.items():
             self._make_table(table, columns)
         self.commit()
-
-
-class TestDb(object):
-    def __init__(self):
-        self.x = 1

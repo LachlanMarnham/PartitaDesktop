@@ -25,11 +25,23 @@ class BaseDBConnection(object):
         self._db.commit()
 
     def _make_table(self, table_name, column_names):
-        query_template = "MAKE TABLE ? ({})".format(','.join('?' * len(column_names)))
-        query_args = (table_name,) + column_names
-        self.execute(query_template, query_args)
+        query_template = "CREATE TABLE {}" + "({})".format(','.join(['{}'] * len(column_names)))
+        self.execute(query_template.format(table_name, *column_names))
 
     def _create_db(self):
         for table, columns in self._schema.items():
             self._make_table(table, columns)
         self.commit()
+
+    def fetch(self, fetch_all=True):
+        if fetch_all:
+            data = self._fetchall()
+        else:
+            data = self._fetchone()
+        return data
+
+    def _fetchall(self):
+        return self._cursor.fetchall()
+
+    def _fetchone(self):
+        return self._cursor.fetchone()

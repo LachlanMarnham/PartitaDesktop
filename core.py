@@ -1,7 +1,7 @@
 import sys
 from PyQt5.QtCore import QPoint
-from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QApplication, QWidget
+from PyQt5.QtGui import QIcon, QFont
+from PyQt5.QtWidgets import QApplication, QWidget, QToolTip, QPushButton
 
 WINDOW_HEIGHT = 600
 WINDOW_WIDTH = 971
@@ -27,8 +27,12 @@ class HomeScreen(QWidget):
         self.resize(WINDOW_WIDTH, WINDOW_HEIGHT)
         self.move(self.anchor)
         self.setWindowTitle('Partita')
-        # TODO test with logo enabled in environment
-        self.setWindowIcon(QIcon('logo.svg'))
+
+        QToolTip.setFont(QFont('SansSerif', 10))
+        quit_button = QPushButton('Quit', self)
+        quit_button.clicked.connect(QApplication.instance().quit)
+        quit_button.resize(quit_button.sizeHint())
+        quit_button.move(50, 50)
 
         self.show()
 

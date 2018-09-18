@@ -3,8 +3,8 @@ from random import shuffle
 
 class BaseCollection(list):
 
-    def __init__(self, iterable):
-        super().__init__(iterable=iterable)
+    def __init__(self, iterable=None):
+        super().__init__(iterable if iterable else [])
 
     @property
     def length(self):

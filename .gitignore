@@ -1,8 +1,11 @@
 .idea/
+*.coverage
 *.swp
 *pytest_cache*
-__pycache__
+*__pycache__*
 *.pyc
 venv
 *egg-info
 *lastfailed
+
+tests/*/.pytest_cache*

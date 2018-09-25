@@ -19,4 +19,4 @@ def get_highest_reasonable_time_from_timedelta(delta: timedelta) -> Tuple[int, s
         return days, 'days'
     for interval, length_in_seconds in descending_intervals:
         if seconds // length_in_seconds:
-            return length_in_seconds, interval
+            return seconds // length_in_seconds, interval

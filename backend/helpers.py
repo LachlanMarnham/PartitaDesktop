@@ -1,4 +1,4 @@
-from datetime import timedelta
+from datetime import timedelta, datetime
 from typing import Tuple
 
 intervals = {
@@ -20,3 +20,14 @@ def get_highest_reasonable_time_from_timedelta(delta: timedelta) -> Tuple[int, s
     for interval, length_in_seconds in descending_intervals:
         if seconds // length_in_seconds:
             return seconds // length_in_seconds, interval
+
+
+date_format = '%Y-%m-%d'
+
+
+def datetime_to_str(date_obj: datetime) -> str:
+    return date_obj.strftime(date_format)
+
+
+def str_to_datetime(date_str: str) -> datetime:
+    return datetime.strptime(date_str, date_format)

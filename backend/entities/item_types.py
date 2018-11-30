@@ -14,34 +14,38 @@ class BaseMusicalItem(metaclass=ABCMeta):
             self,
             iid: int,
             title: str,
+            sort_index: int,  # TODO doesn't currently do anything
             last_played: str,
             played_since_shuffle: bool,
-            item_type: ItemTypes,
+            created: Optional[str],  # None if instantiating new item for the first time
     ) -> None:
 
         self.iid = iid
         self.title = title
+        self.sort_index = sort_index
         self.last_played = str_to_datetime(last_played)  # TODO: this is the wrong function...resolution too low
         self.played_since_shuffle = played_since_shuffle
-        self.item_type = item_type
-        self.created = datetime.now()
+        self.created = datetime.now() if created is None else str_to_datetime(created)
 
 
 class Piece(BaseMusicalItem):
+    item_type = ItemTypes.PIECE
 
     def __init__(
             self,
             iid: int,
             title: str,
+            sort_index: int,  # TODO doesn't currently do anything
             composer: str = '',
             tempo: Optional[int] = None,
             last_played: Optional[str] = None,
             played_since_shuffle: bool = False,
+            created: Optional[str] = None,    # None if instantiating new item for the first time, else str from db
     ) -> None:
 
         self.composer = composer
         self.tempo = tempo
-        super().__init__(iid, title, last_played, played_since_shuffle, item_type=ItemTypes.PIECE)
+        super().__init__(iid, title, sort_index, last_played, played_since_shuffle, created)
 
     @property
     def _dormancy(self) -> Optional[timedelta]:
@@ -71,18 +75,21 @@ class Piece(BaseMusicalItem):
 
 
 class Scale(BaseMusicalItem):
+    item_type = ItemTypes.SCALE
 
     def __init__(
             self,
             iid: int,
             title: str,
+            sort_index: int,  # TODO doesn't currently do anything
             tempos: Optional[SortedSet] = None,
             last_played=None,
             played_since_shuffle=False,
+            created: Optional[str] = None,  # None if instantiating new item for the first time, else str from db
     ) -> None:
 
         self.tempos = tempos if tempos is not None else SortedSet()
-        super().__init__(iid, title, last_played, played_since_shuffle, item_type=ItemTypes.SCALE)
+        super().__init__(iid, title, sort_index, last_played, played_since_shuffle, created)
 
     def add_tempo(self, tempo: int) -> None:
         """ Add a new tempo to the set (it will be automatically re-sorted) """

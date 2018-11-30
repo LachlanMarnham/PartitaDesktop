@@ -1,9 +1,11 @@
-from random import shuffle
+from typing import Iterable
+
+import random
 
 
 class BaseCollection(list):
 
-    def __init__(self, iterable=None, next_up_index=0):
+    def __init__(self, iterable: Iterable = None, next_up_index: int = 0):
         super().__init__(iterable if iterable else [])
         self.next_up_index = next_up_index
 
@@ -24,16 +26,21 @@ class BaseCollection(list):
         self.next_up_index = 0
 
     def get_next_item(self):
-        next_item = self.__getitem__(self.next_up_index)
+        next_item = self[self.next_up_index]
         self.next_up_index += 1
         return next_item
 
     @property
-    def length(self):
-        return self.__len__()
+    def length(self) -> int:
+        return len(self)
 
-    def shuffle(self):
-        shuffle(self)
+    def shuffle(self) -> None:
+        """
+        Shuffle the collection and update the sort_index of every item in the collection
+        """
+        random.shuffle(self)
+        for index, item in enumerate(self):
+            item.set_sort_index(index)
 
 
 class Scales(BaseCollection):

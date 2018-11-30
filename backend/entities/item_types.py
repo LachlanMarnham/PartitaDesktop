@@ -27,6 +27,14 @@ class BaseMusicalItem(metaclass=ABCMeta):
         self.played_since_shuffle = played_since_shuffle
         self.created = datetime.now() if created is None else str_to_datetime(created)
 
+    def set_sort_index(self, new_index: int) -> None:
+        """
+        This is called by the co-ordinating Collection class following a shuffle. It is important for every item to
+        know where it is in the sort order so this information can be stored in the database (ie to persist between
+        sessions)
+        """
+        self.sort_index = new_index
+
 
 class Piece(BaseMusicalItem):
     item_type = ItemTypes.PIECE
@@ -40,7 +48,7 @@ class Piece(BaseMusicalItem):
             tempo: Optional[int] = None,
             last_played: Optional[str] = None,
             played_since_shuffle: bool = False,
-            created: Optional[str] = None,    # None if instantiating new item for the first time, else str from db
+            created: Optional[str] = None,  # None if instantiating new item for the first time, else str from db
     ) -> None:
 
         self.composer = composer
@@ -66,7 +74,7 @@ class Piece(BaseMusicalItem):
         self.played_since_shuffle = True
         # self.time_since_last played should update here
 
-    def schedule(self) -> None:
+    def mark_as_unplayed(self) -> None:
         """
         Should be called once all pieces in the list have been played
         :return:

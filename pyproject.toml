@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "partita"
+version = "0.1.0"
+description = ""
+authors = ["LachlanMarnham <lachlan.marnham@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+fastapi = "^0.138.0"
+
+
+[tool.poetry.group.dev.dependencies]
+invoke = "^3.0.3"
+ruff = "^0.15.18"
+isort = "^8.0.1"
+mypy = "^2.1.0"
+pytest = "^9.1.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

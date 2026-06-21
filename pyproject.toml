@@ -9,6 +9,8 @@ readme = "README.md"
 python = "^3.10"
 fastapi = "^0.138.0"
 uvicorn = "^0.34.0"
+pytest-cov = "^7.1.0"
+pytest-random-order = "^1.2.0"
 
 [tool.poetry.group.dev]
 optional = true
@@ -19,7 +21,18 @@ ruff = "^0.15.18"
 isort = "^8.0.1"
 mypy = "^2.1.0"
 pytest = "^9.1.1"
+httpx = "^0.28.0"
 
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+addopts = [
+    "--random-order",
+    "--cov=partita",
+    "--cov-report=term-missing",
+    "--cov-fail-under=100",
+]
 
 [build-system]
 requires = ["poetry-core"]

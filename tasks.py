@@ -20,7 +20,7 @@ def update(c):
 
 @task
 def dev_server(c):
-    c.run("uvicorn partita.main:app --reload")
+    c.run("uvicorn partita.app_factory:app_factory --factory --reload")
 
 
 @task
@@ -47,3 +47,8 @@ def style(c):
     isort(c)
     ruff(c)
     mypy(c)
+
+
+@task
+def test(c):
+    c.run("pytest")

@@ -9,6 +9,8 @@ readme = "README.md"
 python = "^3.10"
 fastapi = "^0.138.0"
 
+[tool.poetry.group.dev]
+optional = true
 
 [tool.poetry.group.dev.dependencies]
 invoke = "^3.0.3"
@@ -16,6 +18,7 @@ ruff = "^0.15.18"
 isort = "^8.0.1"
 mypy = "^2.1.0"
 pytest = "^9.1.1"
+
 
 [build-system]
 requires = ["poetry-core"]

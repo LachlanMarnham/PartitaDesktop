@@ -19,6 +19,11 @@ def update(c):
 
 
 @task
+def dev_server(c):
+    c.run("uvicorn partita.main:app --reload")
+
+
+@task
 def ruff(c):
     echo("ruff")
     c.run("ruff check --fix partita tests tasks.py")

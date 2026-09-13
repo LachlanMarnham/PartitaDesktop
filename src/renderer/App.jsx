@@ -1,16 +1,20 @@
 import React from 'react'
+import { HashRouter, Routes, Route, Navigate } from 'react-router-dom'
+import Nav from './components/Nav'
+import PiecesView from './views/PiecesView'
 
 function App() {
-  const handleClick = async () => {
-    const message = await window.api.getMessage()
-    alert(message)
-  }
-
   return (
-    <div>
-      <h1>Partita</h1>
-      <button onClick={handleClick}>Get Message</button>
-    </div>
+    <HashRouter>
+      <div>
+        <h1>Partita</h1>
+        <Nav />
+        <Routes>
+          <Route path="/" element={<Navigate to="/pieces" replace />} />
+          <Route path="/pieces" element={<PiecesView />} />
+        </Routes>
+      </div>
+    </HashRouter>
   )
 }
 

@@ -1,10 +1,10 @@
 import { contextBridge, ipcRenderer } from 'electron'
-import handlers from '../main/handlers'
+import { IPC_CHANNELS } from '../shared/ipcChannels'
 
 const toCamelCase = (channel) => channel.replace(/-([a-z])/g, (_, letter) => letter.toUpperCase())
 
 const api = Object.fromEntries(
-  Object.keys(handlers).map((channel) => [
+  IPC_CHANNELS.map((channel) => [
     toCamelCase(channel),
     (...args) => ipcRenderer.invoke(channel, ...args)
   ])

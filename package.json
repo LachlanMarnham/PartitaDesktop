@@ -6,21 +6,26 @@
   "scripts": {
     "dev": "electron-vite dev --watch",
     "build": "electron-vite build",
-    "start": "electron-vite preview"
+    "start": "electron-vite preview",
+    "postinstall": "electron-rebuild -f -w better-sqlite3"
   },
   "devDependencies": {
+    "@electron/rebuild": "^4.2.0",
     "@vitejs/plugin-react": "^4.3.1",
     "electron": "^31.0.0",
     "electron-vite": "^5.0.0",
     "vite": "^5.3.4"
   },
   "dependencies": {
+    "better-sqlite3": "^11.10.0",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^7.18.3"
   },
   "allowScripts": {
     "electron@31.7.7": true,
     "fsevents@2.3.3": true,
-    "esbuild@0.21.5": true
+    "esbuild@0.21.5": true,
+    "better-sqlite3@11.10.0": true
   }
 }

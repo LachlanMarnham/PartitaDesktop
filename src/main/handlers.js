@@ -1,5 +1,6 @@
-const getMessage = () => 'Hello from the backend, autoreload works!!!'
+import { listPieces, addPiece } from './pieces'
 
 export default {
-  'get-message': getMessage
+  'list-pieces': listPieces,
+  'add-piece': addPiece
 }
